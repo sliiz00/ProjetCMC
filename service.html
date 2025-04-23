@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>البحث عن الحرفيين - حرايفي</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .artisan-card {
+            transition: all 0.3s ease;
+            border: none;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .artisan-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        
+        .rating {
+            color: #f39c12;
+        }
+        
+        .filter-section {
+            background-color: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">حرايفي</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">الرئيسية</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="service.html">البحث عن الحرفيين</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="register.html">تسجيل حرفي</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="about.html">من نحن</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="contact.html">اتصل بنا</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Search and Filter Section -->
+    <section class="py-4 bg-light">
+        <div class="container">
+            <div class="row">
+                <!-- Filters Sidebar -->
+                <div class="col-lg-3 mb-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title mb-3">تصفية النتائج</h5>
+                            
+                            <!-- Craft Type Filter -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">نوع الحرفة</label>
+                                <select class="form-select" id="craftType">
+                                    <option value="all">جميع الحرف</option>
+                                    <option value="carpenter">نجارة</option>
+                                    <option value="electrician">كهرباء</option>
+                                    <option value="plumber">سباكة</option>
+                                    <option value="painter">دهان</option>
+                                    <option value="blacksmith">حدادة</option>
+                                    <option value="builder">بناء</option>
+                                </select>
+                            </div>
+
+                            <!-- City Filter -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">المدينة</label>
+                                <select class="form-select" id="city">
+                                    <option value="all">جميع المدن</option>
+                                    <option value="beni-mellal">بني ملال</option>
+                                    <option value="casablanca">الدار البيضاء</option>
+                                    <option value="rabat">الرباط</option>
+                                    <option value="marrakech">مراكش</option>
+                                    <option value="fes">فاس</option>
+                                    <option value="tangier">طنجة</option>
+                                </select>
+                            </div>
+
+                            <!-- Rating Filter -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">التقييم</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" value="all" id="rating-all" checked>
+                                    <label class="form-check-label" for="rating-all">الكل</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" value="4.5" id="rating-4.5">
+                                    <label class="form-check-label" for="rating-4.5">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star-half-alt text-warning"></i>
+                                        (4.5+)
+                                    </label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="rating" value="4.0" id="rating-4">
+                                    <label class="form-check-label" for="rating-4">
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="fas fa-star text-warning"></i>
+                                        <i class="far fa-star text-warning"></i>
+                                        (4.0+)
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Experience Filter -->
+                            <div class="mb-3">
+                                <label class="form-label fw-bold">الخبرة</label>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="experience" value="all" id="exp-all" checked>
+                                    <label class="form-check-label" for="exp-all">الكل</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="experience" value="10" id="exp-10">
+                                    <label class="form-check-label" for="exp-10">10+ سنوات</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="experience" value="5" id="exp-5">
+                                    <label class="form-check-label" for="exp-5">5+ سنوات</label>
+                                </div>
+                                <div class="form-check">
+                                    <input class="form-check-input" type="radio" name="experience" value="3" id="exp-3">
+                                    <label class="form-check-label" for="exp-3">3+ سنوات</label>
+                                </div>
+                            </div>
+
+                            <button class="btn btn-primary w-100" id="applyFilters">تطبيق التصفية</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Craftsmen List -->
+                <div class="col-lg-9">
+                    <div class="mb-4">
+                        <div class="d-flex justify-content-between align-items-center">
+                            <h4 class="mb-0">الحرفيون المتاحون</h4>
+                            <div class="d-flex gap-2 align-items-center">
+                                <label class="form-label mb-0">ترتيب حسب:</label>
+                                <select class="form-select" style="width: auto;">
+                                    <option value="rating">التقييم الأعلى</option>
+                                    <option value="experience">الخبرة الأكثر</option>
+                                    <option value="reviews">عدد التقييمات</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row g-4" id="craftsmen-list">
+                        <!-- نجار -->
+                        <div class="col-md-6 col-lg-4" data-craft="carpenter" data-city="beni-mellal" data-rating="4.8" data-experience="15">
+                            <div class="card artisan-card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img src="https://via.placeholder.com/80" class="rounded-circle me-3" alt="صورة الحرفي">
+                                        <div>
+                                            <h5 class="card-title mb-1">محمد أحمد</h5>
+                                            <span class="badge bg-primary">نجار</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                                            <span>بني ملال</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-star text-warning me-2"></i>
+                                            <span>4.8 (48 تقييم)</span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-briefcase text-secondary me-2"></i>
+                                            <span>15 سنة خبرة</span>
+                                        </div>
+                                    </div>
+                                    <p class="card-text">متخصص في الأثاث الخشبي والديكور الداخلي. خبرة واسعة في تصميم وتنفيذ المشاريع السكنية والتجارية.</p>
+                                    <div class="d-grid gap-2">
+                                        <a href="artisan-profile.html" class="btn btn-outline-primary">عرض الملف الشخصي</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- كهربائي -->
+                        <div class="col-md-6 col-lg-4" data-craft="electrician" data-city="beni-mellal" data-rating="4.9" data-experience="10">
+                            <div class="card artisan-card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img src="https://via.placeholder.com/80" class="rounded-circle me-3" alt="صورة الحرفي">
+                                        <div>
+                                            <h5 class="card-title mb-1">أحمد علي</h5>
+                                            <span class="badge bg-primary">كهربائي</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                                            <span>بني ملال</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-star text-warning me-2"></i>
+                                            <span>4.9 (52 تقييم)</span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-briefcase text-secondary me-2"></i>
+                                            <span>10 سنوات خبرة</span>
+                                        </div>
+                                    </div>
+                                    <p class="card-text">متخصص في التمديدات الكهربائية وحل المشاكل الكهربائية. خبرة في المشاريع السكنية والتجارية.</p>
+                                    <div class="d-grid gap-2">
+                                        <a href="artisan-profile-electrician.html" class="btn btn-outline-primary">عرض الملف الشخصي</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- سباك -->
+                        <div class="col-md-6 col-lg-4" data-craft="plumber" data-city="beni-mellal" data-rating="4.7" data-experience="8">
+                            <div class="card artisan-card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img src="https://via.placeholder.com/80" class="rounded-circle me-3" alt="صورة الحرفي">
+                                        <div>
+                                            <h5 class="card-title mb-1">عبد الله محمد</h5>
+                                            <span class="badge bg-primary">سباك</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                                            <span>بني ملال</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-star text-warning me-2"></i>
+                                            <span>4.7 (35 تقييم)</span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-briefcase text-secondary me-2"></i>
+                                            <span>8 سنوات خبرة</span>
+                                        </div>
+                                    </div>
+                                    <p class="card-text">متخصص في السباكة وتركيب الأدوات الصحية. خبرة في صيانة وإصلاح شبكات المياه.</p>
+                                    <div class="d-grid gap-2">
+                                        <a href="artisan-profile-plumber.html" class="btn btn-outline-primary">عرض الملف الشخصي</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- دهان -->
+                        <div class="col-md-6 col-lg-4" data-craft="painter" data-city="beni-mellal" data-rating="4.6" data-experience="12">
+                            <div class="card artisan-card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img src="https://via.placeholder.com/80" class="rounded-circle me-3" alt="صورة الحرفي">
+                                        <div>
+                                            <h5 class="card-title mb-1">حسن عمر</h5>
+                                            <span class="badge bg-primary">دهان</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                                            <span>بني ملال</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-star text-warning me-2"></i>
+                                            <span>4.6 (42 تقييم)</span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-briefcase text-secondary me-2"></i>
+                                            <span>12 سنة خبرة</span>
+                                        </div>
+                                    </div>
+                                    <p class="card-text">متخصص في أعمال الدهان والديكور. خبرة في تنفيذ التصميمات الحديثة والكلاسيكية.</p>
+                                    <div class="d-grid gap-2">
+                                        <a href="artisan-profile-painter.html" class="btn btn-outline-primary">عرض الملف الشخصي</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- حداد -->
+                        <div class="col-md-6 col-lg-4" data-craft="blacksmith" data-city="beni-mellal" data-rating="4.8" data-experience="14">
+                            <div class="card artisan-card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img src="https://via.placeholder.com/80" class="rounded-circle me-3" alt="صورة الحرفي">
+                                        <div>
+                                            <h5 class="card-title mb-1">كريم سعيد</h5>
+                                            <span class="badge bg-primary">حداد</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                                            <span>بني ملال</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-star text-warning me-2"></i>
+                                            <span>4.8 (38 تقييم)</span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-briefcase text-secondary me-2"></i>
+                                            <span>14 سنة خبرة</span>
+                                        </div>
+                                    </div>
+                                    <p class="card-text">متخصص في أعمال الحدادة وتصنيع الأبواب والنوافذ. خبرة في المشاريع الكبيرة والصغيرة.</p>
+                                    <div class="d-grid gap-2">
+                                        <a href="artisan-profile-blacksmith.html" class="btn btn-outline-primary">عرض الملف الشخصي</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- بناء -->
+                        <div class="col-md-6 col-lg-4" data-craft="builder" data-city="beni-mellal" data-rating="4.9" data-experience="18">
+                            <div class="card artisan-card h-100">
+                                <div class="card-body">
+                                    <div class="d-flex align-items-center mb-3">
+                                        <img src="https://via.placeholder.com/80" class="rounded-circle me-3" alt="صورة الحرفي">
+                                        <div>
+                                            <h5 class="card-title mb-1">يوسف رشيد</h5>
+                                            <span class="badge bg-primary">بناء</span>
+                                        </div>
+                                    </div>
+                                    <div class="mb-3">
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-map-marker-alt text-secondary me-2"></i>
+                                            <span>بني ملال</span>
+                                        </div>
+                                        <div class="d-flex align-items-center mb-2">
+                                            <i class="fas fa-star text-warning me-2"></i>
+                                            <span>4.9 (55 تقييم)</span>
+                                        </div>
+                                        <div class="d-flex align-items-center">
+                                            <i class="fas fa-briefcase text-secondary me-2"></i>
+                                            <span>18 سنة خبرة</span>
+                                        </div>
+                                    </div>
+                                    <p class="card-text">متخصص في أعمال البناء والترميم. خبرة واسعة في المشاريع السكنية والتجارية.</p>
+                                    <div class="d-grid gap-2">
+                                        <a href="artisan-profile-builder.html" class="btn btn-outline-primary">عرض الملف الشخصي</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-dark text-white py-4">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-4">
+                    <h5>حرايفي</h5>
+                    <p>منصة رقمية متكاملة تربط بين الحرفيين المهرة والعملاء الباحثين عن خدمات عالية الجودة</p>
+                </div>
+                <div class="col-md-4">
+                    <h5>روابط سريعة</h5>
+                    <ul class="list-unstyled">
+                        <li><a href="index.html" class="text-white">الرئيسية</a></li>
+                        <li><a href="service.html" class="text-white">البحث عن الحرفيين</a></li>
+                        <li><a href="register.html" class="text-white">تسجيل حرفي</a></li>
+                        <li><a href="about.html" class="text-white">من نحن</a></li>
+                        <li><a href="contact.html" class="text-white">اتصل بنا</a></li>
+                    </ul>
+                </div>
+                <div class="col-md-4">
+                    <h5>اتصل بنا</h5>
+                    <ul class="list-unstyled">
+                        <li><i class="fas fa-phone me-2"></i> +212 647-093715</li>
+                        <li><i class="fas fa-envelope me-2"></i> contact@harayfi.com</li>
+                        <li><i class="fas fa-map-marker-alt me-2"></i> بني ملال، المغرب</li>
+                    </ul>
+                </div>
+            </div>
+            <hr>
+            <div class="text-center">
+                <p class="mb-0">&copy; 2024 حرايفي. جميع الحقوق محفوظة</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        // Filtering functionality
+        document.getElementById('applyFilters').addEventListener('click', function() {
+            const craftType = document.getElementById('craftType').value;
+            const city = document.getElementById('city').value;
+            const rating = document.querySelector('input[name="rating"]:checked').value;
+            const experience = document.querySelector('input[name="experience"]:checked').value;
+
+            const craftsmen = document.querySelectorAll('#craftsmen-list > div');
+            
+            craftsmen.forEach(craftsman => {
+                let show = true;
+                
+                // Check craft type
+                if (craftType !== 'all' && craftsman.dataset.craft !== craftType) {
+                    show = false;
+                }
+                
+                // Check city
+                if (city !== 'all' && craftsman.dataset.city !== city) {
+                    show = false;
+                }
+                
+                // Check rating
+                if (rating !== 'all' && parseFloat(craftsman.dataset.rating) < parseFloat(rating)) {
+                    show = false;
+                }
+                
+                // Check experience
+                if (experience !== 'all' && parseInt(craftsman.dataset.experience) < parseInt(experience)) {
+                    show = false;
+                }
+                
+                craftsman.style.display = show ? '' : 'none';
+            });
+        });
+
+        // Sorting functionality
+        document.querySelector('select[class="form-select"]').addEventListener('change', function(e) {
+            const sortBy = e.target.value;
+            const craftsmen = Array.from(document.querySelectorAll('#craftsmen-list > div'));
+            
+            craftsmen.sort((a, b) => {
+                if (sortBy === 'rating') {
+                    return parseFloat(b.dataset.rating) - parseFloat(a.dataset.rating);
+                } else if (sortBy === 'experience') {
+                    return parseInt(b.dataset.experience) - parseInt(a.dataset.experience);
+                }
+                return 0;
+            });
+            
+            const craftsmenList = document.getElementById('craftsmen-list');
+            craftsmen.forEach(craftsman => craftsmenList.appendChild(craftsman));
+        });
+    </script>
+</body>
+</html> 
